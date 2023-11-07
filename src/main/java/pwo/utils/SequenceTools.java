@@ -8,20 +8,37 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+
 public class SequenceTools {
 
     private static String getTerms(SequenceGenerator sg,
             int from, int to, String sep) {
 
-        int i = from, stop = to, step = from > to ? -1 :1;
+        int i, stop;
         String terms = "";
+        if (from > to){
+            i = to;
+            stop = from;
+        }
+        else {
+        stop = to;
+        i = from;
+        }
 
-        while (true) {
-            terms += sg.getTerm(i) + sep;
-            if (i == stop) {
-                return terms.trim();
-            }
-            i += step;
+       
+            while (true) {
+                if (from > to){
+                
+                terms = sg.getTerm(i) + sep + terms;  
+                }
+                else{
+                terms += sg.getTerm(i) + sep;
+                }
+                
+                if (i == stop) {
+                    return terms.trim();
+                }
+                i ++;      
         }
     }
 
